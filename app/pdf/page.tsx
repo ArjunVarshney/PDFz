@@ -3,6 +3,7 @@ import DragAndDropPDF from "@/components/DragAndDropPDF";
 import Layout from "@/components/Layout";
 import PdfPreview from "@/components/PdfPreview";
 import React, { useState } from "react";
+import Operations from "@/components/Operations";
 
 const Tools = () => {
   const [pdfs, setPdfs] = useState([]);
@@ -72,7 +73,7 @@ const Tools = () => {
         >
           <div
             id="pdf-previewer"
-            className={`grid grid-cols-5 gap-4 pr-4 ${
+            className={`flex flex-wrap gap-4 px-4 ${
               pdfs.length ? "min-h-[210px]" : ""
             } overflow-y-auto rounded-box`}
           >
@@ -98,12 +99,19 @@ const Tools = () => {
           <DragAndDropPDF setPdfs={setPdfs} pdfs={pdfs} />
         </div>
         <div
-          className=" w-[30%] rounded-box bg-base-100 shadow-lg grid place-items-center"
+          className="w-[30%] flex flex-col gap-4"
           style={{
             height: "calc(100vh - 10rem)",
           }}
         >
-          Operations
+          <div className=" w-full h-full rounded-box bg-base-100 shadow-lg grid place-items-center overflow-y-auto">
+            <Operations />
+          </div>
+          <div>
+            <button className="btn btn-lg btn-primary w-full">
+              Export To Pdf
+            </button>
+          </div>
         </div>
       </Layout>
     </main>

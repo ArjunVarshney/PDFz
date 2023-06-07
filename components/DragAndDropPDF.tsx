@@ -67,7 +67,7 @@ const DragAndDropPDF = ({ setPdfs, pdfs, className = "" }: pdfType) => {
             multiple
           />
           <label htmlFor="fileInput" className="btn btn-lg btn-primary">
-            {pdfs.length ? "Add File" : "Upload File"}
+            Add File
           </label>
           <p className="text-2xl font-semibold max-w-[30%] text-center">
             Drag and drop or Select PDF file(s)

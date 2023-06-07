@@ -19,7 +19,7 @@ const PdfPreview = ({
   previewPdf,
 }: previewerType) => {
   return (
-    <div className="border border-solid border-neutral/25 rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
+    <div className="border border-solid border-neutral/25 min-w-[150px] max-w-[200px] rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
       <iframe
         id={"pdfnumber" + order}
         className="rounded-box rounded-bl-none rounded-br-none border border-solid border-neutral/30"
