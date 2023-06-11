@@ -3,7 +3,7 @@ import { useState } from "react";
 
 type pdfType = {
   setPdfs: Function;
-  pdfs: File[];
+  pdfs: (File | Blob)[];
   className?: string;
 };
 

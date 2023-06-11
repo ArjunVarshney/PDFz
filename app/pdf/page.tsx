@@ -6,8 +6,12 @@ import React, { useState } from "react";
 import Operations from "@/components/Operations";
 
 const Tools = () => {
-  const [pdfs, setPdfs] = useState([]);
+  const [pdfs, setPdfs] = useState<(File | Blob)[]>([]);
   const [preview, setPreview] = useState<string>("");
+
+  const changePdfs = (arr: React.SetStateAction<(File | Blob)[]>) => {
+    setPdfs(arr);
+  };
 
   const removePdf = (index: number) => {
     const pdfCopy = [...pdfs];
@@ -105,7 +109,7 @@ const Tools = () => {
           }}
         >
           <div className=" w-full h-full rounded-box bg-base-100 shadow-lg grid place-items-center overflow-y-auto">
-            <Operations />
+            <Operations pdfs={pdfs} setPdfs={changePdfs} />
           </div>
           <div>
             <button className="btn btn-lg btn-primary w-full">
