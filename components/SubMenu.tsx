@@ -7,6 +7,7 @@ type inputType = {
   type: string;
   select?: string[];
   default: any;
+  helper?: string;
 };
 
 type menuType = {
@@ -84,45 +85,66 @@ const SubMenu = ({
             {inputs.fields.map((input: inputType, index) => {
               if (input.type === "checkbox") {
                 return (
-                  <div
-                    className="flex items-center text-xs gap-2 text-secondary-content"
-                    key={index}
-                  >
-                    <input
-                      type={input.type}
-                      name={input.name}
-                      checked={formData[input.name]}
-                      onChange={handleChange}
-                      className="checkbox checkbox-base-300 border-base-300/100 h-6 w-6"
-                    />
-                    {input.placeholder}
+                  <div>
+                    <div
+                      className="flex items-center text-xs gap-2 text-secondary-content"
+                      key={index}
+                    >
+                      <input
+                        type={input.type}
+                        name={input.name}
+                        checked={formData[input.name]}
+                        onChange={handleChange}
+                        className="checkbox checkbox-base-300 border-base-300/100 h-6 w-6"
+                      />
+                      {input.placeholder}
+                    </div>
+                    {input.helper && (
+                      <div className="text-xs text-secondary-content font-light">
+                        {input.helper}
+                      </div>
+                    )}
                   </div>
                 );
               } else if (input.type === "select" && input.select) {
                 return (
-                  <select
-                    className="select select-bordered select-md w-full text-base-content bg-base-100"
-                    name={input.name}
-                    key={index}
-                    value={formData[input.name]}
-                    onChange={handleChange}
-                  >
-                    {input.select?.map((option, index) => {
-                      return <option key={index}>{option}</option>;
-                    })}
-                  </select>
+                  <div>
+                    <select
+                      className="select select-bordered select-md w-full text-base-content bg-base-100"
+                      name={input.name}
+                      key={index}
+                      value={formData[input.name]}
+                      onChange={handleChange}
+                    >
+                      {input.select?.map((option, index) => {
+                        return <option key={index}>{option}</option>;
+                      })}
+                    </select>
+                    {input.helper && (
+                      <div className="text-xs text-secondary-content font-light">
+                        {input.helper}
+                      </div>
+                    )}
+                  </div>
                 );
               } else {
                 return (
-                  <input
-                    key={index}
-                    name={input.name}
-                    type={input.type}
-                    placeholder={input.placeholder}
-                    className="input input-sm input-bordered w-full text-base-content bg-base-100"
-                    value={formData[input.name]}
-                    onChange={handleChange}
-                  />
+                  <div>
+                    <input
+                      key={index}
+                      name={input.name}
+                      type={input.type}
+                      placeholder={input.placeholder}
+                      className="input input-sm input-bordered w-full text-base-content bg-base-100"
+                      value={formData[input.name]}
+                      onChange={handleChange}
+                    />
+                    {input.helper && (
+                      <div className="text-xs pr-1 text-secondary-content font-light">
+                        {input.helper}
+                      </div>
+                    )}
+                  </div>
                 );
               }
             })}

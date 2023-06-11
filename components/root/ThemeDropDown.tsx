@@ -1,12 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { themes } from "@/constants/themes";
 
 const ThemeDropDown = () => {
   const changeTheme = (theme: string) => {
     const html = document.querySelector("html");
     html?.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
   };
+
+  useEffect(() => {
+    const theme = window.localStorage.getItem("theme");
+    if (!theme) {
+      window.localStorage.setItem("theme", "dark");
+    } else {
+      changeTheme(theme);
+    }
+  }, []);
 
   return (
     <div

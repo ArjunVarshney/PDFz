@@ -1,5 +1,5 @@
-import { operations } from "@/constants/pdfFunctions";
-import React, { useState } from "react";
+import { operations } from "@/constants/PdfOperations";
+import React from "react";
 import SubMenu from "./SubMenu";
 
 type OperationsType = {
@@ -22,7 +22,7 @@ const Operations = ({ pdfs, setPdfs }: OperationsType) => {
             </div>
             <div className="collapse-content">
               <ul className="flex flex-col gap-2 pt-2">
-                {operation.functions.map((func, index) => {
+                {operation.functions.map((func: any, index) => {
                   if (!func.inputRequired) {
                     return (
                       <button
