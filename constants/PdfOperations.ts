@@ -1,5 +1,7 @@
+import { AddMargin } from "./utils/AddMargin";
 import { PdfResize } from "./utils/PdfResize";
 import { PdfRotate } from "./utils/PdfRotate";
+import { PdfSplit } from "./utils/PdfSplit";
 
 export const changePdfs = (
   pdfs: (File | Blob)[],
@@ -50,4 +52,4 @@ export const processRange = (strRange: string) => {
   return actualRange;
 };
 
-export const operations = [PdfRotate, PdfResize];
+export const operations = [PdfRotate, PdfResize, AddMargin, PdfSplit];

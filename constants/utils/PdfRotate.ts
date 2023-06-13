@@ -59,10 +59,10 @@ export const PdfRotate = {
           },
           {
             name: "range",
-            placeholder: "eg: 1,3-6,9-end...",
+            placeholder: "Pages | eg: 1,3-6,9-end...",
             type: "text",
             default: "",
-            helper:"Write \"start-end\" for selecting all the pages of the pdf"
+            helper: 'Write "start-end" for selecting all the pages of the pdf',
           },
           {
             name: "angle",

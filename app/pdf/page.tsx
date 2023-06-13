@@ -39,6 +39,12 @@ const Tools = () => {
     setPdfs(pdfCopy);
   };
 
+  const duplicatePdf = (index: number) => {
+    const pdfCopy = [...pdfs];
+    pdfCopy.splice(index + 1, 0, pdfCopy[index]);
+    setPdfs(pdfCopy);
+  };
+
   const previewPdf = (pdfUrl: string) => {
     setPreview(pdfUrl);
     // @ts-ignore
@@ -82,6 +88,7 @@ const Tools = () => {
             } overflow-y-auto rounded-box`}
           >
             {pdfs.map((pdf, index) => {
+              console.log(typeof pdf);
               return (
                 <PdfPreview
                   pdfUrl={URL.createObjectURL(pdf)}
@@ -91,6 +98,7 @@ const Tools = () => {
                   moveLeft={moveLeft}
                   moveRight={moveRight}
                   previewPdf={previewPdf}
+                  duplicatePdf={duplicatePdf}
                 />
               );
             })}

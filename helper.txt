@@ -1,0 +1,9 @@
+['center',
+'top-left',
+'top-right',
+'bottom-right',
+'bottom-left',
+'center-left',
+'center-right',
+'center-top',
+'center-bottom']

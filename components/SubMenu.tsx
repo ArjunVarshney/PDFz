@@ -5,6 +5,7 @@ type inputType = {
   name: string;
   placeholder: string;
   type: string;
+  divide?: inputType[];
   select?: string[];
   default: any;
   helper?: string;
@@ -40,7 +41,7 @@ const SubMenu = ({
   const initialize = () => {
     const initialState: { [key: string]: string } = {};
     for (const input of inputs.fields) {
-      initialState[input.name] = "";
+      initialState[input.name] = input.default ? input.default : "";
     }
     setFormData(initialState);
   };
@@ -62,7 +63,7 @@ const SubMenu = ({
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     await operation(pdfs, setPdfs, formData);
-    //  initialize();
+    // initialize();
   }
 
   return (
@@ -85,11 +86,8 @@ const SubMenu = ({
             {inputs.fields.map((input: inputType, index) => {
               if (input.type === "checkbox") {
                 return (
-                  <div>
-                    <div
-                      className="flex items-center text-xs gap-2 text-secondary-content"
-                      key={index}
-                    >
+                  <div key={index}>
+                    <div className="flex items-center text-xs gap-2 text-secondary-content mt-1.5">
                       <input
                         type={input.type}
                         name={input.name}
@@ -108,11 +106,15 @@ const SubMenu = ({
                 );
               } else if (input.type === "select" && input.select) {
                 return (
-                  <div>
+                  <div key={index}>
+                    <label className="label py-0">
+                      <span className="label-text text-secondary-content capitalize">
+                        {input.placeholder}
+                      </span>
+                    </label>
                     <select
                       className="select select-bordered select-md w-full text-base-content bg-base-100"
                       name={input.name}
-                      key={index}
                       value={formData[input.name]}
                       onChange={handleChange}
                     >
@@ -127,11 +129,35 @@ const SubMenu = ({
                     )}
                   </div>
                 );
+              } else if (input.type == "divide" && input.divide) {
+                return (
+                  <div key={index}>
+                    <div className="join">
+                      {input.divide.map((div, index) => {
+                        return (
+                          <input
+                            key={index}
+                            name={div.name}
+                            type={div.type}
+                            placeholder={div.placeholder}
+                            className="input input-sm input-bordered w-full text-base-content bg-base-100 join-item"
+                            value={formData[input.name]}
+                            onChange={handleChange}
+                          />
+                        );
+                      })}
+                    </div>
+                    {input.helper && (
+                      <div className="text-xs pr-1 text-secondary-content font-light">
+                        {input.helper}
+                      </div>
+                    )}
+                  </div>
+                );
               } else {
                 return (
-                  <div>
+                  <div key={index}>
                     <input
-                      key={index}
                       name={input.name}
                       type={input.type}
                       placeholder={input.placeholder}
