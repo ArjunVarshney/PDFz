@@ -35,7 +35,7 @@ export const AddMargin = {
         for (const pdf of pdfs) {
           await manipulator.addMargin(pdf, [margin, margin, margin, margin]);
           const pdfBuffer = await manipulator.getPdfBuffer();
-          manipulated.push(pdfBuffer);
+          if (pdfBuffer) manipulated.push(pdfBuffer);
           await manipulator.clearDoc();
         }
         changePdfs(pdfs, setPdfs, manipulated, 0, !inputs.newPdf);
@@ -100,7 +100,7 @@ export const AddMargin = {
             marginLeft,
           ]);
           const pdfBuffer = await manipulator.getPdfBuffer();
-          manipulated.push(pdfBuffer);
+          if (pdfBuffer) manipulated.push(pdfBuffer);
           await manipulator.clearDoc();
         }
         changePdfs(pdfs, setPdfs, manipulated, 0, !newPdf);
@@ -194,6 +194,7 @@ export const AddMargin = {
         await manipulator.addMarginWithRange([
           {
             file: pdf,
+            // @ts-ignore
             range: actualRange,
             margin: [marginTop, marginRight, marginBottom, marginLeft],
             rest: rest ? "include" : "exclude",
@@ -201,7 +202,7 @@ export const AddMargin = {
         ]);
 
         const pdfBuffer = await manipulator.getPdfBuffer();
-        changePdfs(pdfs, setPdfs, pdfBuffer, index, !newPdf);
+        if (pdfBuffer) changePdfs(pdfs, setPdfs, pdfBuffer, index, !newPdf);
       },
     },
   ],

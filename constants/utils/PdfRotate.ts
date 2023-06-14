@@ -13,7 +13,7 @@ const rotateAll = async (
     const pdf = pdfs[i];
     await rotator.rotate(pdf, angle);
     let pdfBuffer = await rotator.getPdfBuffer();
-    processed.push(pdfBuffer);
+    if (pdfBuffer) processed.push(pdfBuffer);
     await rotator.clearDoc();
   }
   changePdfs(pdfs, setPdfs, processed, 0, true);
@@ -107,6 +107,7 @@ export const PdfRotate = {
         await rotator.rotateWithRange([
           {
             file: pdf,
+            // @ts-ignore
             range: actualRange,
             degree: angle,
             rest: inputs.rest ? "include" : "exclude",
@@ -114,7 +115,14 @@ export const PdfRotate = {
         ]);
 
         const pdfBuffer = await rotator.getPdfBuffer();
-        changePdfs(pdfs, setPdfs, pdfBuffer, inputs.index - 1, !inputs.newPdf);
+        if (pdfBuffer)
+          changePdfs(
+            pdfs,
+            setPdfs,
+            pdfBuffer,
+            inputs.index - 1,
+            !inputs.newPdf
+          );
       },
     },
   ],

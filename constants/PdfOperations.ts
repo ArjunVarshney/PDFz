@@ -1,4 +1,5 @@
 import { AddMargin } from "./utils/AddMargin";
+import { PdfMerge } from "./utils/PdfMerge";
 import { PdfResize } from "./utils/PdfResize";
 import { PdfRotate } from "./utils/PdfRotate";
 import { PdfSplit } from "./utils/PdfSplit";
@@ -33,7 +34,7 @@ export const changePdfs = (
   }
 };
 
-export const processRange = (strRange: string) => {
+export const processRange = (strRange: string, groups: boolean = true) => {
   const strRanges = strRange.split(",");
   const actualRange = [];
   for (let i = 0; i < strRanges.length; i++) {
@@ -43,7 +44,12 @@ export const processRange = (strRange: string) => {
       const e = strRanges[i].split("-")[1].trim();
       const start = s === "start" || s === "end" ? s : parseInt(s);
       const end = e === "start" || e === "end" ? e : parseInt(e);
-      actualRange.push([start, end]);
+      if (groups) actualRange.push([start, end]);
+      else if (typeof start === "number" && typeof end === "number") {
+        for (i = start; i <= end; i++) {
+          actualRange.push(i);
+        }
+      }
     } else {
       let page = parseInt(strRanges[i].trim());
       actualRange.push(page);
@@ -52,4 +58,4 @@ export const processRange = (strRange: string) => {
   return actualRange;
 };
 
-export const operations = [PdfRotate, PdfResize, AddMargin, PdfSplit];
+export const operations = [PdfRotate, PdfResize, AddMargin, PdfSplit, PdfMerge];

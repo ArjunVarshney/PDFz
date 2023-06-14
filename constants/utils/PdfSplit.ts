@@ -18,7 +18,7 @@ export const PdfSplit = {
           await splitter.split(pdf);
         }
         const bufferArr = await splitter.getPdfBuffer();
-        changePdfs(pdfs, setPdfs, bufferArr, 0, true);
+        if (bufferArr) changePdfs(pdfs, setPdfs, bufferArr, 0, true);
       },
     },
     {
@@ -54,12 +54,14 @@ export const PdfSplit = {
         const pdf = pdfs[index];
         await splitter.split(pdf);
         const bufferArr = await splitter.getPdfBuffer();
+        if (!bufferArr) return;
         if (inputs.newPdf) {
           changePdfs(pdfs, setPdfs, bufferArr, 0, false);
         } else {
           let copy = [...pdfs];
           copy.splice(index, 1);
           let i = 0;
+          // @ts-ignore
           for (const buffer of bufferArr) {
             copy.splice(
               index + i,
@@ -112,14 +114,17 @@ export const PdfSplit = {
         const actualRange = processRange(inputs.range);
 
         const pdf = pdfs[index];
+        // @ts-ignore
         await splitter.splitWithRange(pdf, actualRange);
         const bufferArr = await splitter.getPdfBuffer();
+        if (!bufferArr) return;
         if (inputs.newPdf) {
           changePdfs(pdfs, setPdfs, bufferArr, index, false);
         } else {
           let copy = [...pdfs];
           copy.splice(index, 1);
           let i = 0;
+          // @ts-ignore
           for (const buffer of bufferArr) {
             copy.splice(
               index + i,

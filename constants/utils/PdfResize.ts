@@ -10,15 +10,12 @@ export const PdfResize = {
       icon: `<path d="M844.5 300.2 595.2 71.7s-6.2-7.5-14.2-7.5H218.5c-23.6 0-42.9 19.2-42.9 42.9v809.3c0 23.6 19.2 42.9 42.9 42.9h588.2c23.6 0 42.9-19.2 42.9-42.9V311.7c0-5.6-3.1-9.7-5.1-11.5zM596.7 115.5 793.6 296l-146.1-.1c-28 0-50.8-22.9-50.8-50.9V115.5zm221.5 800.9c0 6.4-5.2 11.5-11.5 11.5H218.4c-6.4 0-11.5-5.2-11.5-11.5V107.1c0-6.4 5.2-11.5 11.5-11.5h346.9V245c0 45.3 36.8 82.2 82.1 82.2l170.8.2v589z" />
     <path d="M527.3 693.6h-33.8l-24.2-64.9h-98.7l-22.8 64.9H314l90.3-237H437l90.3 237zM459.8 602 424 503.5c-1.1-3.2-2.3-8.7-3.7-16.5h-.8c-1.1 7.1-2.4 12.6-3.8 16.5L380.2 602h79.6zm213.4-145.4v156.5h35.5v24.8h-35.5v55.7h-29.1v-55.7H533.5v-23.4c19.7-22.1 39.5-47.6 59.4-76.5s36.3-56 49.3-81.4h31zm-106 156.5h76.9V500.2c-10.6 19.1-22 37.6-34.1 55.5-12.1 17.9-26.4 37-42.8 57.4z" />`,
       function: async (pdfs: (File | Blob)[], setPdfs: Function) => {
-        const options = {
-          size: "A4",
-        };
         const resizer = new PdfResizer();
         let resized = [];
         for (const pdf of pdfs) {
-          await resizer.resize(pdf, options);
+          await resizer.resize(pdf);
           const pdfBuffer = await resizer.getPdfBuffer();
-          resized.push(pdfBuffer);
+          if (pdfBuffer) resized.push(pdfBuffer);
           await resizer.clearDoc();
         }
         changePdfs(pdfs, setPdfs, resized, 0, true);
@@ -163,7 +160,7 @@ export const PdfResize = {
         for (const pdf of pdfs) {
           await resizer.resize(pdf, options);
           const pdfBuffer = await resizer.getPdfBuffer();
-          resized.push(pdfBuffer);
+          if (pdfBuffer) resized.push(pdfBuffer);
           await resizer.clearDoc();
         }
         changePdfs(pdfs, setPdfs, resized, 0, !newPdf);
@@ -323,7 +320,7 @@ export const PdfResize = {
         } = inputs;
 
         index = parseInt(index) - 1;
-        const pdf = pdfs[index];
+        const pdf: File | Blob = pdfs[index];
         let actualRange = processRange(range);
         if (size.startsWith("Custom") && height && width) {
           height = parseInt(height.trim());
@@ -340,6 +337,7 @@ export const PdfResize = {
 
         const resizer = new PdfResizer();
 
+        // @ts-ignore
         await resizer.resizeWithRange([
           {
             file: pdf,
@@ -350,7 +348,7 @@ export const PdfResize = {
         ]);
 
         const pdfBuffer = await resizer.getPdfBuffer();
-        changePdfs(pdfs, setPdfs, pdfBuffer, index, !newPdf);
+        if (pdfBuffer) changePdfs(pdfs, setPdfs, pdfBuffer, index, !newPdf);
       },
     },
   ],
