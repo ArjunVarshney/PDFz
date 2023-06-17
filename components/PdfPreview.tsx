@@ -1,5 +1,8 @@
 "use client";
 import React from "react";
+import { SpecialZoomLevel, Worker } from "@react-pdf-viewer/core";
+import { Viewer } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
 type previewerType = {
   pdf: File | Blob;
@@ -21,15 +24,15 @@ const PdfPreview = ({
   duplicatePdf,
 }: previewerType) => {
   return (
-    <div className="border border-solid border-neutral/25 min-w-[150px] max-w-[200px] rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
-      <iframe
-        frameBorder={0}
-        id={"pdfnumber" + order}
-        className="rounded-box rounded-b-none border border-solid border-neutral/30 max-w-full max-h-full"
-        src={URL.createObjectURL(pdf) + "#toolbar=0"}
-        width={"100%"}
-        height={"100%"}
-      />
+    <div className="border border-solid border-neutral/25 min-w-[170px] h-[190px] max-w-[200px] rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
+      <div className="max-h-[150px] w-full rounded-box overflow-hidden rounded-b-none">
+        <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
+          <Viewer
+            fileUrl={URL.createObjectURL(pdf)}
+            defaultScale={SpecialZoomLevel.PageWidth}
+          />
+        </Worker>
+      </div>
 
       <div className="flex items-center justify-between w-full px-2">
         <div

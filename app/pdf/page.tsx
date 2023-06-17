@@ -103,10 +103,12 @@ const Tools = () => {
               close
             </button>
           </div>
-          <iframe
+          <embed
             src={URL.createObjectURL(preview)}
-            className="rounded-box h-[93%] w-full"
-          ></iframe>
+            type="application/pdf"
+            width="100%"
+            height="100%"
+          />
         </dialog>
         <div className="w-full md:w-[60%] lg:w-[70%] md:h-[calc(100vh-10rem)] flex flex-col items-center justify-center gap-2">
           <div
