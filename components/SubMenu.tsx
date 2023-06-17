@@ -70,7 +70,7 @@ const SubMenu = ({
     <div>
       <div className="collapse collapse-arrow bg-secondary rounded-btn text-primary-content">
         <input type="checkbox" />
-        <div className="collapse-title text-md capitalize text-sm text-secondary-content font-semibold flex items-center gap-3 w-full">
+        <div className="collapse-title text-xs lg:text-[0.875rem] capitalize text-secondary-content font-semibold flex items-center gap-3 w-full">
           <svg
             viewBox="0 0 1024 1024"
             className="h-6 w-6 fill-secondary-content"

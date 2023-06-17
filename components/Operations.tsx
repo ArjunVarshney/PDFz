@@ -9,7 +9,7 @@ type OperationsType = {
 
 const Operations = ({ pdfs, setPdfs }: OperationsType) => {
   return (
-    <div className="flex flex-col h-full w-full p-4 gap-2">
+    <div className="flex flex-col h-full w-full p-2 sm:p-4 gap-2">
       {operations.map((operation, index) => {
         return (
           <div
@@ -17,7 +17,7 @@ const Operations = ({ pdfs, setPdfs }: OperationsType) => {
             key={index}
           >
             <input type="checkbox" />
-            <div className="collapse-title text-xl font-medium">
+            <div className="collapse-title text-lg lg:text-xl font-medium">
               {operation.name}
             </div>
             <div className="collapse-content">
@@ -26,7 +26,7 @@ const Operations = ({ pdfs, setPdfs }: OperationsType) => {
                   if (!func.inputRequired) {
                     return (
                       <button
-                        className="btn btn-secondary capitalize justify-start"
+                        className="btn btn-secondary text-xs lg:text-[0.875rem] capitalize justify-start"
                         key={index}
                         onClick={() => func.function(pdfs, setPdfs)}
                       >

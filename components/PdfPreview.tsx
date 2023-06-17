@@ -23,8 +23,9 @@ const PdfPreview = ({
   return (
     <div className="border border-solid border-neutral/25 min-w-[150px] max-w-[200px] rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
       <iframe
+        frameBorder={0}
         id={"pdfnumber" + order}
-        className="rounded-box rounded-b-none border border-solid border-neutral/30"
+        className="rounded-box rounded-b-none border border-solid border-neutral/30 max-w-full max-h-full"
         src={URL.createObjectURL(pdf) + "#toolbar=0"}
         width={"100%"}
         height={"100%"}

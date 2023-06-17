@@ -18,8 +18,22 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div>
+        <div className="hidden xl:block ">
           <Keyboard className="shadow-lg" />
+        </div>
+        <div className="flex-col gap-2 hidden sm:flex xl:hidden">
+          <kbd className="kbd kbd-lg bg-primary text-primary-content p-7 px-10">
+            P
+          </kbd>
+          <kbd className="kbd kbd-lg bg-primary text-primary-content p-7 px-10">
+            D
+          </kbd>
+          <kbd className="kbd kbd-lg bg-primary text-primary-content p-7 px-10">
+            F
+          </kbd>
+          <kbd className="kbd kbd-lg bg-primary text-primary-content p-7 px-10">
+            Z
+          </kbd>
         </div>
       </Layout>
     </main>

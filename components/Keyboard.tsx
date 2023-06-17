@@ -118,7 +118,7 @@ const Keyboard = ({ className = "", keyClasses = "" }) => {
           <kbd
             className={
               `${keyClasses} ` +
-              "kbd kbd-lg transition-all shadow-md p bg-primary"
+              "kbd kbd-lg transition-all shadow-md p bg-primary text-primary-content"
             }
           >
             p
@@ -142,7 +142,7 @@ const Keyboard = ({ className = "", keyClasses = "" }) => {
           <kbd
             className={
               `${keyClasses} ` +
-              "kbd kbd-lg transition-all shadow-md d bg-primary"
+              "kbd kbd-lg transition-all shadow-md d bg-primary text-primary-content"
             }
           >
             d
@@ -150,7 +150,7 @@ const Keyboard = ({ className = "", keyClasses = "" }) => {
           <kbd
             className={
               `${keyClasses} ` +
-              "kbd kbd-lg transition-all shadow-md f bg-primary"
+              "kbd kbd-lg transition-all shadow-md f bg-primary text-primary-content"
             }
           >
             f
@@ -195,7 +195,7 @@ const Keyboard = ({ className = "", keyClasses = "" }) => {
           <kbd
             className={
               `${keyClasses} ` +
-              "kbd kbd-lg transition-all shadow-md z bg-primary"
+              "kbd kbd-lg transition-all shadow-md z bg-primary text-primary-content"
             }
           >
             z

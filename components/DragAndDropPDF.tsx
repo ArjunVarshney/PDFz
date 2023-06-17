@@ -57,7 +57,7 @@ const DragAndDropPDF = ({ setPdfs, pdfs, className = "" }: pdfType) => {
 
   return (
     <div
-      className={`${className} min-h-[230px] h-[100%] w-full flex items-center justify-center border-[4px] border-dashed border-accent/75 shadow-md rounded-box bg-base-100`}
+      className={`${className} min-h-[230px] h-full w-full flex items-center justify-center border-[4px] border-dashed border-accent/75 shadow-md rounded-box bg-base-100`}
       onDragEnter={handleDragEnter}
       onDragOver={handleDragEnter}
       onDragLeave={handleDragLeave}
@@ -77,7 +77,7 @@ const DragAndDropPDF = ({ setPdfs, pdfs, className = "" }: pdfType) => {
           <label htmlFor="fileInput" className="btn btn-lg btn-primary">
             Add File
           </label>
-          <p className="text-2xl font-semibold max-w-[30%] text-center">
+          <p className="text-lg sm:text-2xl font-semibold max-w-[90%] sm:max-w-[70%] xl:max-w-[30%] text-center">
             Drag and drop or Select PDF/Image file(s)
           </p>
         </div>

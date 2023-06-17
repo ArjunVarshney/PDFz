@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata = {
   title: "PDFz",
   description: "Edit your pdfs with ease",
+  viewport: "width=device-width, initial-scale=1.0",
 };
 
 export default function RootLayout({

@@ -11,7 +11,7 @@ const Layout = ({ children, className = "" }: layoutProps) => {
       <div
         className={
           `${className} ` +
-          "hero-content max-w-none text-left w-[80%] justify-around"
+          "hero-content max-w-none text-left w-[95%] sm:w-[85%] md:w-full lg:w-[95%] xl:w-[80%] justify-around"
         }
       >
         {children}
