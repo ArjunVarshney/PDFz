@@ -7,7 +7,7 @@ import Operations from "@/components/Operations";
 
 const Tools = () => {
   const [pdfs, setPdfs] = useState<(File | Blob)[]>([]);
-  const [preview, setPreview] = useState<string>("");
+  const [preview, setPreview] = useState<File | Blob>(new Blob());
 
   const changePdfs = (arr: React.SetStateAction<(File | Blob)[]>) => {
     setPdfs(arr);
@@ -45,8 +45,8 @@ const Tools = () => {
     setPdfs(pdfCopy);
   };
 
-  const previewPdf = (pdfUrl: string) => {
-    setPreview(pdfUrl);
+  const previewPdf = (pdf: File | Blob) => {
+    setPreview(pdf);
     // @ts-ignore
     window.pdf_modal.showModal();
   };
@@ -73,7 +73,10 @@ const Tools = () => {
               close
             </button>
           </div>
-          <iframe src={preview} className="rounded-box h-[93%] w-full"></iframe>
+          <iframe
+            src={URL.createObjectURL(preview)}
+            className="rounded-box h-[93%] w-full"
+          ></iframe>
         </dialog>
         <div
           className="w-[70%] flex flex-col items-center justify-center gap-2"
@@ -91,7 +94,7 @@ const Tools = () => {
               console.log(typeof pdf);
               return (
                 <PdfPreview
-                  pdfUrl={URL.createObjectURL(pdf)}
+                  pdf={pdf}
                   key={index}
                   order={index + 1}
                   removePdf={removePdf}

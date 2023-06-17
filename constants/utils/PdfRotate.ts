@@ -1,4 +1,3 @@
-// @ts-ignore
 import { PdfRotator } from "pdf-ops";
 import { changePdfs, processRange } from "../PdfOperations";
 

@@ -58,4 +58,35 @@ export const processRange = (strRange: string, groups: boolean = true) => {
   return actualRange;
 };
 
+export function predictFileType(file: File | Blob): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      if (!reader.result || typeof reader.result === "string") return;
+      const arr = new Uint8Array(reader.result).subarray(0, 4);
+      let header = "";
+      for (let i = 0; i < arr.length; i++) {
+        header += arr[i].toString(16);
+      }
+      if (header.startsWith("89504e47")) {
+        resolve("image"); // PNG header
+      } else if (
+        header === "ffd8ffe0" ||
+        header === "ffd8ffe1" ||
+        header === "ffd8ffe2"
+      ) {
+        resolve("image"); // JPEG header
+      } else if (header === "25504446") {
+        resolve("pdf"); // PDF header
+      } else {
+        resolve("unknown");
+      }
+    };
+    reader.onerror = () => {
+      reject("Unable to read the file.");
+    };
+    reader.readAsArrayBuffer(file.slice(0, 4));
+  });
+}
+
 export const operations = [PdfRotate, PdfResize, AddMargin, PdfSplit, PdfMerge];

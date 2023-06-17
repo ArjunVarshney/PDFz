@@ -2,7 +2,7 @@
 import React from "react";
 
 type previewerType = {
-  pdfUrl: string;
+  pdf: File | Blob;
   order: number;
   removePdf: Function;
   moveLeft: Function;
@@ -12,7 +12,7 @@ type previewerType = {
 };
 
 const PdfPreview = ({
-  pdfUrl,
+  pdf,
   order,
   removePdf,
   moveLeft,
@@ -24,11 +24,12 @@ const PdfPreview = ({
     <div className="border border-solid border-neutral/25 min-w-[150px] max-w-[200px] rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
       <iframe
         id={"pdfnumber" + order}
-        className="rounded-box rounded-bl-none rounded-br-none border border-solid border-neutral/30"
-        src={pdfUrl + "#toolbar=0"}
+        className="rounded-box rounded-b-none border border-solid border-neutral/30"
+        src={URL.createObjectURL(pdf) + "#toolbar=0"}
         width={"100%"}
         height={"100%"}
       />
+
       <div className="flex items-center justify-between w-full px-2">
         <div
           title="Pdf Number"
@@ -61,7 +62,7 @@ const PdfPreview = ({
         </button>
         <button
           className="absolute opacity-0 group-hover:opacity-100 top-2 left-2 btn btn-sm bg-neutral/25 hover:bg-neutral/40 border-none py-1 px-2 rounded-box"
-          onClick={() => previewPdf(pdfUrl)}
+          onClick={() => previewPdf(pdf)}
         >
           <svg viewBox="-3.5 0 32 32" width={"1.5rem"}>
             <title>{"Preview Pdf"}</title>

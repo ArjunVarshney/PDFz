@@ -1,4 +1,5 @@
 "use client";
+import { ImageToPdfConverter } from "pdf-ops";
 import { useState } from "react";
 
 type pdfType = {
@@ -10,13 +11,20 @@ type pdfType = {
 const DragAndDropPDF = ({ setPdfs, pdfs, className = "" }: pdfType) => {
   const [isDragOver, setIsDragOver] = useState(false);
 
-  const appendFileList = (files: FileList | null | undefined) => {
+  const appendFileList = async (files: FileList | null | undefined) => {
     if (!files) return;
     for (let i = 0; i < files?.length; i++) {
       const file = files[i];
       if (file.type === "application/pdf") {
         setPdfs((prev: File[]) => {
           return [...prev, file];
+        });
+      } else if (file.type.startsWith("image/")) {
+        const converter = new ImageToPdfConverter();
+        await converter.createPdf([file]);
+        const pdfBuffer = await converter.getPdfBuffer();
+        setPdfs((prev: (File | Blob)[]) => {
+          return [...prev, new Blob([pdfBuffer], { type: "application/pdf" })];
         });
       } else {
         console.log("type not supported!");
@@ -70,7 +78,7 @@ const DragAndDropPDF = ({ setPdfs, pdfs, className = "" }: pdfType) => {
             Add File
           </label>
           <p className="text-2xl font-semibold max-w-[30%] text-center">
-            Drag and drop or Select PDF file(s)
+            Drag and drop or Select PDF/Image file(s)
           </p>
         </div>
       )}

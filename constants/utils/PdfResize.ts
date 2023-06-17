@@ -1,4 +1,3 @@
-// @ts-ignore
 import { PdfResizer } from "pdf-ops";
 import { changePdfs, processRange } from "../PdfOperations";
 
