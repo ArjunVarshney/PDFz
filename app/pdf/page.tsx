@@ -6,6 +6,9 @@ import React, { useState } from "react";
 import Operations from "@/components/Operations";
 import { PdfMerger } from "pdf-ops";
 import JSZip from "jszip";
+import { SpecialZoomLevel, Worker } from "@react-pdf-viewer/core";
+import { Viewer } from "@react-pdf-viewer/core";
+import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const Tools = () => {
   const [pdfs, setPdfs] = useState<(File | Blob)[]>([]);
@@ -43,6 +46,27 @@ const Tools = () => {
     link.click();
   };
 
+  function isMobileDevice() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const mobileKeywords = [
+      "android",
+      "webos",
+      "iphone",
+      "ipad",
+      "ipod",
+      "blackberry",
+      "windows phone",
+    ];
+
+    for (const keyword of mobileKeywords) {
+      if (userAgent.includes(keyword)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   const removePdf = (index: number) => {
     const pdfCopy = [...pdfs];
     pdfCopy.splice(index, 1);
@@ -76,9 +100,13 @@ const Tools = () => {
   };
 
   const previewPdf = (pdf: File | Blob) => {
-    setPreview(pdf);
-    // @ts-ignore
-    window.pdf_modal.showModal();
+    if (!isMobileDevice()) {
+      setPreview(pdf);
+      // @ts-ignore
+      window.pdf_modal.showModal();
+    } else {
+      window.open(URL.createObjectURL(pdf), "_system");
+    }
   };
 
   return (
@@ -103,12 +131,10 @@ const Tools = () => {
               close
             </button>
           </div>
-          <embed
+          <iframe
             src={URL.createObjectURL(preview)}
-            type="application/pdf"
-            width="100%"
-            height="100%"
-          />
+            className="rounded-box h-[93%] w-full"
+          ></iframe>
         </dialog>
         <div className="w-full md:w-[60%] lg:w-[70%] md:h-[calc(100vh-10rem)] flex flex-col items-center justify-center gap-2">
           <div
