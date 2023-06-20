@@ -6,13 +6,12 @@ import React, { useState } from "react";
 import Operations from "@/components/Operations";
 import { PdfMerger } from "pdf-ops";
 import JSZip from "jszip";
-import { SpecialZoomLevel, Worker } from "@react-pdf-viewer/core";
-import { Viewer } from "@react-pdf-viewer/core";
 import "@react-pdf-viewer/core/lib/styles/index.css";
 
 const Tools = () => {
   const [pdfs, setPdfs] = useState<(File | Blob)[]>([]);
   const [preview, setPreview] = useState<File | Blob>(new Blob());
+  const [loading, setLoading] = useState<boolean>(false);
 
   const mergeAndDownload = async () => {
     const merger = new PdfMerger();
@@ -137,28 +136,32 @@ const Tools = () => {
           ></iframe>
         </dialog>
         <div className="w-full md:w-[60%] lg:w-[70%] md:h-[calc(100vh-10rem)] flex flex-col items-center justify-center gap-2">
-          <div
-            id="pdf-previewer"
-            className={`flex w-full max-w-[calc(100vw-3rem)] md:flex-wrap gap-4 px-4 overflow-x-auto ${
-              pdfs.length ? "min-h-[210px]" : ""
-            } overflow-y-auto rounded-box`}
-          >
-            {pdfs.map((pdf, index) => {
-              console.log(typeof pdf);
-              return (
-                <PdfPreview
-                  pdf={pdf}
-                  key={index}
-                  order={index + 1}
-                  removePdf={removePdf}
-                  moveLeft={moveLeft}
-                  moveRight={moveRight}
-                  previewPdf={previewPdf}
-                  duplicatePdf={duplicatePdf}
-                />
-              );
-            })}
-          </div>
+          {loading ? (
+            <span className="min-h-[210px] loading loading-dots loading-lg"></span>
+          ) : (
+            <div
+              id="pdf-previewer"
+              className={`flex w-full max-w-[calc(100vw-3rem)] md:flex-wrap gap-4 px-4 overflow-x-auto ${
+                pdfs.length ? "min-h-[210px]" : ""
+              } overflow-y-auto rounded-box`}
+            >
+              {pdfs.map((pdf, index) => {
+                return (
+                  <PdfPreview
+                    pdf={pdf}
+                    key={index}
+                    order={index + 1}
+                    removePdf={removePdf}
+                    moveLeft={moveLeft}
+                    moveRight={moveRight}
+                    previewPdf={previewPdf}
+                    duplicatePdf={duplicatePdf}
+                  />
+                );
+              })}
+            </div>
+          )}
+
           {pdfs.length ? (
             <div className="divider my-1 before:bg-accent after:bg-accent"></div>
           ) : (
@@ -168,7 +171,7 @@ const Tools = () => {
         </div>
         <div className="h-fit md:h-[calc(100vh-10rem)] w-full md:w-[40%] lg:w-[30%] flex flex-col gap-4">
           <div className=" w-full h-full rounded-box bg-base-100 shadow-lg grid place-items-center overflow-y-auto">
-            <Operations pdfs={pdfs} setPdfs={setPdfs} />
+            <Operations pdfs={pdfs} setPdfs={setPdfs} setLoading={setLoading} />
           </div>
           <div>
             <button

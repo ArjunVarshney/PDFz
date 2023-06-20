@@ -25,7 +25,7 @@ const PdfPreview = ({
 }: previewerType) => {
   return (
     <div className="border border-solid border-neutral/25 min-w-[170px] h-[190px] max-w-[200px] rounded-box bg-base-100 shadow-lg p-[2px] pb-1 shrink flex flex-col items-center justify-center transition-all relative group">
-      <div className="max-h-[150px] w-full rounded-box overflow-hidden rounded-b-none">
+      <div className="h-[150px] w-full rounded-box overflow-hidden rounded-b-none">
         <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.4.120/build/pdf.worker.min.js">
           <Viewer
             fileUrl={URL.createObjectURL(pdf)}

@@ -17,6 +17,7 @@ type menuType = {
   icon: string;
   name: string;
   operation: Function;
+  setLoading: Function;
   inputs: {
     fields: inputType[];
   };
@@ -28,6 +29,7 @@ const SubMenu = ({
   icon,
   name,
   operation,
+  setLoading,
   inputs,
 }: menuType) => {
   const [formData, setFormData] = useState<{ [key: string]: any }>(() => {
@@ -62,7 +64,9 @@ const SubMenu = ({
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setLoading(true);
     await operation(pdfs, setPdfs, formData);
+    setLoading(false);
     // initialize();
   }
 
