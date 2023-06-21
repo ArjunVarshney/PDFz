@@ -5,10 +5,11 @@ import SubMenu from "./SubMenu";
 type OperationsType = {
   pdfs: (File | Blob)[];
   setPdfs: Function;
+  loading: boolean;
   setLoading: Function;
 };
 
-const Operations = ({ pdfs, setPdfs, setLoading }: OperationsType) => {
+const Operations = ({ pdfs, setPdfs, loading, setLoading }: OperationsType) => {
   return (
     <div className="flex flex-col h-full w-full p-2 sm:p-4 gap-2">
       {operations.map((operation, index) => {
@@ -34,6 +35,7 @@ const Operations = ({ pdfs, setPdfs, setLoading }: OperationsType) => {
                           await func.function(pdfs, setPdfs);
                           setLoading(false);
                         }}
+                        disabled={loading}
                       >
                         <svg
                           className="h-6 w-6 fill-secondary-content"
@@ -52,6 +54,7 @@ const Operations = ({ pdfs, setPdfs, setLoading }: OperationsType) => {
                         icon={func.icon}
                         name={func.name}
                         operation={func.function}
+                        loading={loading}
                         setLoading={setLoading}
                         inputs={func.inputRequired}
                       />

@@ -17,6 +17,7 @@ type menuType = {
   icon: string;
   name: string;
   operation: Function;
+  loading: boolean;
   setLoading: Function;
   inputs: {
     fields: inputType[];
@@ -29,6 +30,7 @@ const SubMenu = ({
   icon,
   name,
   operation,
+  loading,
   setLoading,
   inputs,
 }: menuType) => {
@@ -179,7 +181,11 @@ const SubMenu = ({
               }
             })}
             <div className="flex justify-end mt-1">
-              <button className="btn btn-sm btn-primary" type="submit">
+              <button
+                className="btn btn-sm btn-primary"
+                type="submit"
+                disabled={loading}
+              >
                 Done
               </button>
             </div>

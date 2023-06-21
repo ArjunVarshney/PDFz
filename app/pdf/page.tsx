@@ -171,7 +171,12 @@ const Tools = () => {
         </div>
         <div className="h-fit md:h-[calc(100vh-10rem)] w-full md:w-[40%] lg:w-[30%] flex flex-col gap-4">
           <div className=" w-full h-full rounded-box bg-base-100 shadow-lg grid place-items-center overflow-y-auto">
-            <Operations pdfs={pdfs} setPdfs={setPdfs} setLoading={setLoading} />
+            <Operations
+              pdfs={pdfs}
+              setPdfs={setPdfs}
+              loading={loading}
+              setLoading={setLoading}
+            />
           </div>
           <div>
             <button
